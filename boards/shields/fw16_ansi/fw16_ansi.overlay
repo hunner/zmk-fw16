@@ -6,6 +6,20 @@
         zmk,matrix_transform = &default_transform;
     };
 
+    behaviors {
+        /* Backlight behavior (safe to define now; wiring can be added later) */
+        bl: backlight {
+            compatible = "zmk,behavior-backlight";
+            label = "BL";
+            #binding-cells = <2>;
+        };
+        /* RGB behavior will be added once hardware is wired (to avoid link errors) */
+        // rgb_ug: rgb_underglow {
+        //     compatible = "zmk,behavior-rgb-underglow";
+        //     label = "RGB_UG";
+        // };
+    };
+
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <16>;
