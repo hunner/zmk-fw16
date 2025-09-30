@@ -1,0 +1,12 @@
+if BOARD_FW16
+
+config BOARD
+	default "fw16"
+
+config RP2_FLASH_W25Q080
+	default y
+
+config USB_SELF_POWERED
+	default n
+
+endif # BOARD_FW16

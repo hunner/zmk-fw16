@@ -1,0 +1,2 @@
+config ZMK_SHIELD_FW16_ANSI
+    bool "Framework 16 ANSI shield"

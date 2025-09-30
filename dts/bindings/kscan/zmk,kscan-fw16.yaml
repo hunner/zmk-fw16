@@ -1,0 +1,36 @@
+description: ZMK kscan driver for Framework 16 (RP2040 ADC + 3-bit mux)
+compatible: "zmk,kscan-fw16"
+include: [kscan.yaml]
+properties:
+  col-gpios:
+    type: phandle-array
+    required: true
+  mux-gpios:
+    type: phandle-array
+    required: true
+  mux-enable-gpios:
+    type: phandle-array
+    required: true
+  io-channels:
+    type: phandle-array
+    required: true
+  adc-gpios:
+    type: phandle-array
+    required: false
+    description: Optional GPIO spec for the ADC pad to enable internal pull-up (e.g. <&gpio0 28 GPIO_PULL_UP>)
+  columns:
+    type: int
+    required: true
+  rows:
+    type: int
+    required: true
+  debounce-press-ms:
+    type: int
+  debounce-release-ms:
+    type: int
+  debounce-scan-period-ms:
+    type: int
+    default: 1
+  poll-period-ms:
+    type: int
+    default: 15

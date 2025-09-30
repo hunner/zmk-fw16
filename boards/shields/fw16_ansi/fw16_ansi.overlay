@@ -1,0 +1,78 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
+
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <16>;
+        rows = <8>;
+        map = <
+            /* Row 1: FN row (14) in LAYOUT order */
+            RC(7,5) RC(3,5) RC(2,5) RC(6,4) RC(3,4) RC(4,10) RC(3,10) RC(2,10) RC(1,15) RC(3,11) RC(4,8) RC(6,8) RC(3,13) RC(0,1)
+
+            /* Row 2: Number row (14) */
+            RC(4,2) RC(5,2) RC(5,5) RC(5,4) RC(5,6) RC(4,6) RC(4,7) RC(5,7) RC(5,10) RC(5,8) RC(4,13) RC(2,13) RC(4,14) RC(5,14)
+
+            /* Row 3: Q row (14) */
+            RC(3,2) RC(0,2) RC(6,5) RC(2,4) RC(6,6) RC(3,6) RC(3,7) RC(6,7) RC(6,10) RC(3,8) RC(5,13) RC(6,13) RC(6,14) RC(2,8)
+
+            /* Row 4: A row (13) */
+            RC(4,4) RC(7,2) RC(4,5) RC(7,14) RC(7,6) RC(2,6) RC(2,7) RC(7,7) RC(7,10) RC(7,8) RC(7,13) RC(0,14) RC(1,14)
+
+            /* Row 5: Z row (12) */
+            RC(1,9) RC(1,5) RC(0,5) RC(0,0) RC(0,6) RC(1,6) RC(1,7) RC(0,7) RC(0,10) RC(0,8) RC(0,13) RC(0,9)
+
+            /* Row 6: bottom row (11) */
+            RC(1,12) RC(2,2) RC(3,1) RC(1,3) RC(1,4) RC(0,3) RC(0,12) RC(6,11) RC(1,13) RC(1,8) RC(2,15)
+        >;
+    };
+
+    /* KSCAN definition for the FW16 ANSI */
+    kscan0: kscan_0 {
+        compatible = "zmk,kscan-fw16";
+        label = "KSCAN";
+
+        /* Framework 16 ANSI wiring:
+         * Columns (KSO0..15): GP8,9,10,11,12,13,14,15,21,20,19,18,17,16,23,22
+         * MUX select A,B,C: GP1,GP2,GP3; MUX enable: GP4 (active low)
+         * ADC channel: GP28 (ADC channel 2)
+         */
+        col-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 9 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 10 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 11 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 12 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 13 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 14 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 15 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 21 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 20 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 19 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 18 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 17 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 16 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 23 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 22 GPIO_ACTIVE_HIGH>;
+
+        mux-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 2 GPIO_ACTIVE_HIGH>,
+                    <&gpio0 3 GPIO_ACTIVE_HIGH>;
+        /* MUX enable is hardware-active-low; we will drive it low to enable */
+        mux-enable-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+
+        io-channels = <&adc 2>;
+        /* Bias the ADC pad with an internal pull-up to prevent floating */
+        adc-gpios = <&gpio0 28 GPIO_PULL_UP>;
+        rows = <8>;
+        columns = <16>;
+
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+        debounce-scan-period-ms = <1>;
+        poll-period-ms = <2>;
+    };
+};

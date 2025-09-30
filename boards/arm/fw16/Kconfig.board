@@ -1,0 +1,3 @@
+config BOARD_FW16
+	bool "Framework 16 Board"
+	depends on SOC_RP2040

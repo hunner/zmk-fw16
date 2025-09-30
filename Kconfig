@@ -1,0 +1,15 @@
+DT_COMPAT_ZMK_KSCAN_FW16 := zmk,kscan-fw16
+
+#config ZMK_KSCAN_DIRECT_POLLING
+#    bool
+
+menu "ZMK FW16"
+
+config ZMK_KSCAN_FW16_DRIVER
+    bool
+    default $(dt_compat_enabled,$(DT_COMPAT_ZMK_KSCAN_FW16))
+    select ADC
+    select GPIO
+    select ZMK_DEBOUNCE
+
+endmenu

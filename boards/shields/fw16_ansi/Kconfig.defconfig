@@ -1,0 +1,6 @@
+if ZMK_SHIELD_FW16_ANSI
+
+config ZMK_KEYBOARD_NAME
+    default "Framework 16 ANSI"
+
+endif
